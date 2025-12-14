@@ -1,5 +1,9 @@
 # operator-repo
 
+[![Release](https://img.shields.io/github/v/release/farhaan-shamsee/operator-repo)](https://github.com/farhaan-shamsee/operator-repo/releases)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![Go Report Card](https://goreportcard.com/badge/github.com/farhaan-shamsee/operator-repo)](https://goreportcard.com/report/github.com/farhaan-shamsee/operator-repo)
+
 EC2 Instance Kubernetes Operator - Manage AWS EC2 instances declaratively using Kubernetes Custom Resources.
 
 ## Description
@@ -52,7 +56,49 @@ kubectl create secret generic aws-credentials \
   --from-literal=AWS_SECRET_ACCESS_KEY=your-secret
 ```
 
-### To Deploy on the cluster
+## Installation
+
+### Quick Install with Helm (Recommended)
+
+1. Create AWS credentials secret:
+```sh
+kubectl create secret generic aws-credentials \
+  --from-literal=AWS_ACCESS_KEY_ID=your-key \
+  --from-literal=AWS_SECRET_ACCESS_KEY=your-secret \
+  --namespace=default
+```
+
+2. Install the operator:
+```sh
+helm install ec2-operator ./dist/chart --namespace=default
+```
+
+3. Create your first EC2 instance:
+```sh
+kubectl apply -f config/samples/compute_v1_ec2instance_minimal.yaml
+```
+
+4. Check the status:
+```sh
+kubectl get ec2instances
+kubectl describe ec2instance ec2instance-sample
+```
+
+### Install from GitHub Release
+
+```sh
+# Download the latest release
+wget https://github.com/farhaan-shamsee/operator-repo/releases/download/v1.0.0/operator-repo-v1.0.0.tar.gz
+
+# Extract
+tar -xzf operator-repo-v1.0.0.tar.gz
+
+# Install
+cd operator-repo-v1.0.0
+helm install ec2-operator ./dist/chart --namespace=default
+```
+
+### To Deploy on the cluster (Development)
 **Build and push your image to the location specified by `IMG`:**
 
 ```sh

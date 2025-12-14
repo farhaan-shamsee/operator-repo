@@ -47,3 +47,6 @@ credentials
 # Local test data
 testdata/
 *.local
+
+#Release binaries
+release/
