@@ -1,0 +1,19 @@
+apiVersion: compute.cloud.com/v1
+kind: Ec2instance
+metadata:
+  name: my-web-server  # This becomes the EC2 instance Name tag in AWS!
+spec:
+  # Minimal required fields only
+  instanceType: t3.micro  # Free tier eligible in ap-south-1
+  amiId: ami-02b8269d5e85954ef  # Amazon Linux 2023 AMI for ap-south-1
+  region: ap-south-1
+---
+apiVersion: compute.cloud.com/v1
+kind: Ec2instance
+metadata:
+  name: my-web-server-two  # This becomes the EC2 instance Name tag in AWS!
+spec:
+  # Minimal required fields only
+  instanceType: t3.micro  # Free tier eligible in ap-south-1
+  amiId: ami-02b8269d5e85954ef  # Amazon Linux 2023 AMI for ap-south-1
+  region: ap-south-1

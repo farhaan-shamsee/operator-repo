@@ -25,3 +25,25 @@ go.work
 *.swp
 *.swo
 *~
+
+# Environment variables and secrets
+.env
+.env.*
+*.env
+!.env.example
+
+# AWS credentials
+.aws/
+credentials
+*.pem
+*.key
+
+# Terraform (if you add it later)
+*.tfstate
+*.tfstate.*
+.terraform/
+.terraform.lock.hcl
+
+# Local test data
+testdata/
+*.local

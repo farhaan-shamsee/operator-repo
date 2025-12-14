@@ -1,0 +1,45 @@
+apiVersion: compute.cloud.com/v1
+kind: Ec2instance
+metadata:
+  labels:
+    app.kubernetes.io/name: operator-repo
+    app.kubernetes.io/managed-by: kustomize
+  name: production-web-server  # This becomes the EC2 instance Name tag!
+spec:
+  # Required fields
+  instanceType: t3.micro  # Free tier eligible in ap-south-1
+  amiId: ami-02b8269d5e85954ef  # Amazon Linux 2023 AMI for ap-south-1
+  region: ap-south-1
+  
+  # Optional fields
+  availabilityZone: ap-south-1a
+  keyPair: my-key-pair  # EXAMPLE: Replace with your SSH key pair name
+  subnet: subnet-xxxxxxxxxxxxxxxxx  # EXAMPLE: Replace with your VPC subnet ID
+  securityGroups:  # EXAMPLE: Replace with your security group IDs
+    - sg-xxxxxxxxxxxxxxxxx
+  associatePublicIP: true  # Whether to assign a public IP (optional)
+  
+  # Tags (optional) - these will be added IN ADDITION to the Name tag
+  tags:
+    Environment: production
+    Project: my-app
+    Owner: devops-team
+    CostCenter: engineering
+  
+  # User data script (optional)
+  # userData: |
+  #   #!/bin/bash
+  #   echo "Hello from EC2 instance"
+  #   yum update -y
+  
+  # Storage configuration (optional)
+  # storage:
+  #   rootVolume:
+  #     size: 20
+  #     type: gp3
+  #     encrypted: true
+  #   additionalVolumes:
+  #     - size: 100
+  #       type: gp3
+  #       deviceName: /dev/sdf
+  #       encrypted: true

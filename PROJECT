@@ -8,4 +8,14 @@ layout:
 - go.kubebuilder.io/v4
 projectName: operator-repo
 repo: github.com/farhaan-shamsee/operator-repo
+resources:
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: cloud.com
+  group: compute
+  kind: Ec2instance
+  path: github.com/farhaan-shamsee/operator-repo/api/v1
+  version: v1
 version: "3"

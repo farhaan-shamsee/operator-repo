@@ -1,16 +1,56 @@
 # operator-repo
-// TODO(user): Add simple overview of use/purpose
+
+EC2 Instance Kubernetes Operator - Manage AWS EC2 instances declaratively using Kubernetes Custom Resources.
 
 ## Description
-// TODO(user): An in-depth paragraph about your project and overview of use
+
+This operator allows you to manage AWS EC2 instances as Kubernetes resources. It provides a declarative way to create, update, and delete EC2 instances using familiar Kubernetes tools and patterns.
+
+**Features:**
+- Create and manage EC2 instances via Kubernetes Custom Resources
+- Automatic cleanup with finalizers
+- Support for VPC, security groups, SSH keys, and user data
+- Tag-based naming and organization
+- Parallel instance creation and deletion
 
 ## Getting Started
 
 ### Prerequisites
 - go version v1.24.0+
-- docker version 17.03+.
-- kubectl version v1.11.3+.
-- Access to a Kubernetes v1.11.3+ cluster.
+- docker version 17.03+
+- kubectl version v1.11.3+
+- Access to a Kubernetes v1.11.3+ cluster
+- **AWS Account with EC2 permissions**
+- **AWS credentials (Access Key ID and Secret Access Key)**
+
+### AWS Credentials Setup
+
+**IMPORTANT:** Never commit AWS credentials to git!
+
+1. Copy the example environment file:
+   ```sh
+   cp .env.example .env
+   ```
+
+2. Edit `.env` and add your AWS credentials:
+   ```sh
+   AWS_ACCESS_KEY_ID=your-actual-access-key
+   AWS_SECRET_ACCESS_KEY=your-actual-secret-key
+   AWS_DEFAULT_REGION=ap-south-1
+   ```
+
+3. Load the credentials when running locally:
+   ```sh
+   source .env
+   make run
+   ```
+
+**For production deployments**, use Kubernetes Secrets:
+```sh
+kubectl create secret generic aws-credentials \
+  --from-literal=AWS_ACCESS_KEY_ID=your-key \
+  --from-literal=AWS_SECRET_ACCESS_KEY=your-secret
+```
 
 ### To Deploy on the cluster
 **Build and push your image to the location specified by `IMG`:**
