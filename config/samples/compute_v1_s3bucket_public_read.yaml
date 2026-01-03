@@ -1,0 +1,14 @@
+apiVersion: compute.cloud.com/v1
+kind: S3Bucket
+metadata:
+  labels:
+    app.kubernetes.io/name: operator-repo
+    app.kubernetes.io/managed-by: kustomize
+  name: s3bucket-public-read
+spec:
+  bucketName: my-public-bucket-example
+  region: us-east-1
+  acl: public-read  # WARNING: Requires disabling Block Public Access
+  storageClass: STANDARD
+  # NOTE: This ACL may be blocked by AWS default security settings
+  # You may need to disable "Block all public access" in bucket settings

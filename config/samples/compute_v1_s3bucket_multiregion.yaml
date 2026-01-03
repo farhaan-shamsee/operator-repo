@@ -1,0 +1,13 @@
+apiVersion: compute.cloud.com/v1
+kind: S3Bucket
+metadata:
+  labels:
+    app.kubernetes.io/name: operator-repo
+    app.kubernetes.io/managed-by: kustomize
+  name: s3bucket-eu-central
+spec:
+  bucketName: my-eu-bucket-example
+  region: eu-central-1
+  acl: private
+  storageClass: STANDARD
+  versioning: Enabled

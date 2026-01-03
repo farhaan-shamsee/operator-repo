@@ -5,18 +5,19 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/credentials"
-	"github.com/aws/aws-sdk-go-v2/service/ec2"
 )
 
-func awsClient(region string) (*ec2.Client, error) {
+// getAWSConfig returns a general AWS config that can be used for any AWS service
+func getAWSConfig(region string) (aws.Config, error) {
 	accessKey := os.Getenv("AWS_ACCESS_KEY_ID")
 	secretKey := os.Getenv("AWS_SECRET_ACCESS_KEY")
 
 	// Validate credentials are not empty
 	if accessKey == "" || secretKey == "" {
-		return nil, fmt.Errorf("AWS credentials not found: ensure AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY environment variables are set")
+		return aws.Config{}, fmt.Errorf("AWS credentials not found: ensure AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY environment variables are set")
 	}
 
 	cfg, err := config.LoadDefaultConfig(context.TODO(),
@@ -24,8 +25,8 @@ func awsClient(region string) (*ec2.Client, error) {
 		config.WithCredentialsProvider(credentials.NewStaticCredentialsProvider(accessKey, secretKey, "")),
 	)
 	if err != nil {
-		return nil, fmt.Errorf("failed to load AWS config: %w", err)
+		return aws.Config{}, fmt.Errorf("failed to load AWS config: %w", err)
 	}
 
-	return ec2.NewFromConfig(cfg), nil
+	return cfg, nil
 }

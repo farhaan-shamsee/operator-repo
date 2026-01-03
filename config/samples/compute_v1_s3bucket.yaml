@@ -1,0 +1,12 @@
+apiVersion: compute.cloud.com/v1
+kind: S3Bucket
+metadata:
+  labels:
+    app.kubernetes.io/name: operator-repo
+    app.kubernetes.io/managed-by: kustomize
+  name: s3bucket-sample
+spec:
+  bucketName: farhaan-op-test-bucket
+  region: ap-south-1
+  storageClass: STANDARD
+  acl: private

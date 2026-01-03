@@ -5,6 +5,46 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.0] - 2026-01-03
+
+### Added
+
+#### S3 Bucket Management
+
+- **S3 Bucket Controller**: Full lifecycle management of AWS S3 buckets via Kubernetes Custom Resources
+- **Custom Resource Definition**: `S3Bucket` resource with spec and status fields
+- **Bucket Configuration Support**:
+  - Bucket name specification
+  - Region selection
+  - ACL configuration (private, public-read, etc.)
+  - Versioning control
+  - Storage class selection
+  - LocationConstraint for non-us-east-1 regions
+- **Bucket Status Tracking**:
+  - Bucket ARN reporting
+  - Location tracking
+  - Creation status
+  - Last sync time (RFC3339 format)
+- **Automatic Cleanup**: Empty and delete S3 buckets when Kubernetes resources are deleted
+- **Sample Configurations**: Added `compute_v1_s3bucket.yaml` and minimal variant
+
+#### Infrastructure Improvements
+
+- **Generic AWS Client**: Refactored AWS configuration to support multiple services
+- **Reusable AWS Config Function**: Single `getAWSConfig()` for all AWS services
+- **Service-Specific Initialization**: EC2 and S3 clients created from shared config
+
+### Changed
+
+- **AWS Client Architecture**: Moved from service-specific clients to generic configuration pattern
+- **File Organization**: Separated S3 operations into dedicated files (`createS3bucket.go`, `deleteS3bucket.go`)
+
+### Fixed
+
+- **Deletion Flow Bug**: Fixed status update on resources being deleted (prevents StorageError)
+- **S3 ARN Construction**: Correctly build ARN for general-purpose buckets (not just directory buckets)
+- **Finalizer Cleanup**: Added proper return after finalizer removal to prevent further processing
+
 ## [1.0.0] - 2025-12-14
 
 ### Added

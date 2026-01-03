@@ -1,4 +1,14 @@
 ## Append samples of your project ##
 resources:
+# EC2 Instance samples
 - compute_v1_ec2instance.yaml
+- compute_v1_ec2instance_minimal.yaml
+
+# S3 Bucket samples
+- compute_v1_s3bucket.yaml
+- compute_v1_s3bucket_minimal.yaml
+- compute_v1_s3bucket_versioned.yaml
+- compute_v1_s3bucket_glacier.yaml
+- compute_v1_s3bucket_public_read.yaml
+- compute_v1_s3bucket_multiregion.yaml
 # +kubebuilder:scaffold:manifestskustomizesamples

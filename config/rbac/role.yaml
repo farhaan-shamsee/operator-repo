@@ -8,6 +8,7 @@ rules:
   - compute.cloud.com
   resources:
   - ec2instances
+  - s3buckets
   verbs:
   - create
   - delete
@@ -20,12 +21,14 @@ rules:
   - compute.cloud.com
   resources:
   - ec2instances/finalizers
+  - s3buckets/finalizers
   verbs:
   - update
 - apiGroups:
   - compute.cloud.com
   resources:
   - ec2instances/status
+  - s3buckets/status
   verbs:
   - get
   - patch

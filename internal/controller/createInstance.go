@@ -28,12 +28,13 @@ func createEc2Instance(ctx context.Context, ec2Instance *computev1.Ec2instance) 
 		"instanceType", ec2Instance.Spec.InstanceType,
 		"region", ec2Instance.Spec.Region)
 
-	// create the client for ec2 instance
-	ec2Client, err := awsClient(ec2Instance.Spec.Region)
+	// Get AWS config and create EC2 client
+	cfg, err := getAWSConfig(ec2Instance.Spec.Region)
 	if err != nil {
-		l.Error(err, "Failed to create AWS client")
-		return nil, fmt.Errorf("failed to create AWS client: %w", err)
+		l.Error(err, "Failed to get AWS config")
+		return nil, fmt.Errorf("failed to get AWS config: %w", err)
 	}
+	ec2Client := ec2.NewFromConfig(cfg)
 
 	// create the input for the run instances
 	runInput := &ec2.RunInstancesInput{

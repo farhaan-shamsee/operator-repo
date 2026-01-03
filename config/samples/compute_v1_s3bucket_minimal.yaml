@@ -1,0 +1,11 @@
+apiVersion: compute.cloud.com/v1
+kind: S3Bucket
+metadata:
+  labels:
+    app.kubernetes.io/name: operator-repo
+    app.kubernetes.io/managed-by: kustomize
+  name: s3bucket-minimal
+spec:
+  # Minimal configuration - only required fields
+  bucketName: my-minimal-bucket-example
+  region: us-east-1
