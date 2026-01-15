@@ -54,7 +54,7 @@ func (r *Ec2instanceReconciler) Reconcile(ctx context.Context, req ctrl.Request)
 	l.Info("=== RECONCILE LOOP STARTED ===", "namespace", req.Namespace, "name", req.Name)
 
 	ec2instance := &computev1.Ec2instance{}
-	if err := r.Get(ctx, req.NamespacedName, ec2instance); err != nil {
+	if err := r.Get(ctx, req.NamespacedName, ec2instance); err != nil { //this is fetching from cluster and putting into ec2instance variable 
 		if errors.IsNotFound(err) {
 			l.Info("Instance Deleted. No need to reconcile.")
 			return ctrl.Result{}, nil
